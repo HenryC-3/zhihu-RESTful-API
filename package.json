@@ -1,0 +1,39 @@
+{
+	"name": "zhihu-restful-api",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"commit": "git-cz"
+	},
+	"config": {
+		"commitizen": {
+			"path": "node_modules/cz-conventional-changelog"
+		}
+	},
+	"husky": {
+		"hooks": {
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+		}
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/HenryC-3/zhihu-RESTful-API.git"
+	},
+	"author": "Henry",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/HenryC-3/zhihu-RESTful-API/issues"
+	},
+	"homepage": "https://github.com/HenryC-3/zhihu-RESTful-API#readme",
+	"devDependencies": {
+		"@commitlint/cli": "^11.0.0",
+		"@commitlint/config-conventional": "^11.0.0",
+		"commitizen": "^4.2.3",
+		"cz-conventional-changelog": "^3.3.0",
+		"husky": "^5.0.6"
+	},
+	"dependencies": {
+		"koa": "^2.13.1"
+	}
+}
