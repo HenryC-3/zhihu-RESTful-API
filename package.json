@@ -4,7 +4,8 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"commit": "git-cz"
+		"commit": "git-cz",
+		"dev": "nodemon index.js"
 	},
 	"config": {
 		"commitizen": {
@@ -31,7 +32,8 @@
 		"@commitlint/config-conventional": "^11.0.0",
 		"commitizen": "^4.2.3",
 		"cz-conventional-changelog": "^3.3.0",
-		"husky": "^5.0.6"
+		"husky": "^5.0.6",
+		"nodemon": "^2.0.7"
 	},
 	"dependencies": {
 		"koa": "^2.13.1"
