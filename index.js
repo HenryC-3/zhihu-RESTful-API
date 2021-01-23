@@ -8,25 +8,31 @@ const userRouter = new Router({
 	prefix: "/users",
 });
 
-// 处理不同的 URL
+// 模拟获取用户列表
 userRouter.get("/", (ctx) => {
-	ctx.body = "users";
+	ctx.body = [{ name: "Jack" }, { name: "Jhon" }];
 });
 
-// 解析 URL 上的参数
+// 模拟新建用户
+userRouter.post("/", (ctx) => {
+	ctx.body = { name: "Jeremy" };
+});
+
+// 模拟查找特定用户
 userRouter.get("/:id", (ctx) => {
-	ctx.body = ctx.params.id;
+	ctx.body = { name: "Jack" };
 });
 
-// 处理不同的 HTTP 方法
-router.get("/", (ctx) => {
-	ctx.body = "get";
-});
-router.post("/", (ctx) => {
-	ctx.body = "post";
+// 模拟修改用户
+userRouter.put("/:id", (ctx) => {
+	ctx.body = { name: "Jack2" };
 });
 
-app.use(router.routes()).use(router.allowedMethods());
+// 204 no content 请求已成功,只是没有内容
+userRouter.delete("/:id", (ctx) => {
+	ctx.status = 204;
+});
+
 app.use(userRouter.routes()).use(router.allowedMethods());
 
 app.listen(3000);
