@@ -42,6 +42,7 @@
 		"koa": "^2.13.1",
 		"koa-body": "^4.2.0",
 		"koa-json-error": "^3.1.2",
+		"koa-parameter": "^3.0.1",
 		"koa-router": "^10.0.0"
 	}
 }

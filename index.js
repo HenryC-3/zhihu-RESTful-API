@@ -4,6 +4,7 @@ const error = require("koa-json-error");
 const app = new Koa();
 const route = require("./app/routes");
 require("dotenv").config();
+const parameter = require("koa-parameter");
 
 // 注意中间件的调用顺序
 app.use(
@@ -13,6 +14,7 @@ app.use(
 	})
 );
 app.use(KoaBody());
+app.use(parameter(app));
 route(app);
 
 app.listen(3000);

@@ -6,8 +6,12 @@ class userController {
 		ctx.body = db;
 	}
 	create(ctx) {
-		db.push(JSON.parse(ctx.request.body));
-		ctx.body = `新建用户${ctx.request.body}`;
+		ctx.verifyParams({
+			name: { type: "string", required: true },
+			id: "number",
+		});
+		db.push(ctx.request.body);
+		ctx.body = `新建用户${JSON.stringify(ctx.request.body)}`;
 	}
 	findByID(ctx) {
 		ctx.body = db[ctx.params.id * 1];
