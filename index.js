@@ -5,6 +5,17 @@ const app = new Koa();
 const route = require("./app/routes");
 require("dotenv").config();
 const parameter = require("koa-parameter");
+const mongoose = require("mongoose");
+
+mongoose.connect(
+	process.env.CONNECTION_STRING,
+	{ useNewUrlParser: true, useUnifiedTopology: true },
+	() => {
+		console.log("已连接至 MongoDB Atlas");
+	}
+);
+
+mongoose.connection.on(error, console.error);
 
 // 注意中间件的调用顺序
 app.use(
