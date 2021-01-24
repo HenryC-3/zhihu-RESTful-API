@@ -7,15 +7,16 @@ require("dotenv").config();
 const parameter = require("koa-parameter");
 const mongoose = require("mongoose");
 
-mongoose.connect(
-	process.env.CONNECTION_STRING,
-	{ useNewUrlParser: true, useUnifiedTopology: true },
-	() => {
-		console.log("已连接至 MongoDB Atlas");
-	}
-);
+mongoose.connect(process.env.CONNECTION_STRING, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+});
 
-mongoose.connection.on(error, console.error);
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", function () {
+	console.log("已连接至 MongoDB Atlas");
+});
 
 // 注意中间件的调用顺序
 app.use(
