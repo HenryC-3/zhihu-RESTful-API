@@ -5,6 +5,11 @@ const router = new Router({
 });
 
 // 模拟获取用户列表
+
+// 响应为 200
+// router.get("/", find);
+
+// 响应为 404
 router.get("/", (ctx) => {
 	find(ctx);
 });

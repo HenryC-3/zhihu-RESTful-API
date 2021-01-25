@@ -1,9 +1,10 @@
 // 模拟数据库
 const db = [{ name: "Jack" }, { name: "Jhon" }];
+const User = require("../models/user");
 
 class userController {
-	find(ctx) {
-		ctx.body = db;
+	async find(ctx) {
+		ctx.body = await User.find();
 	}
 	create(ctx) {
 		ctx.verifyParams({
