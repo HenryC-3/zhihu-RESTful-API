@@ -5,29 +5,19 @@ const router = new Router({
 });
 
 // 模拟获取用户列表
-router.get("/", (ctx) => {
-	find(ctx);
-});
+router.get("/", find);
 
 // 模拟新建用户
-router.post("/", (ctx) => {
-	create(ctx);
-});
+router.post("/", create);
 
 // 模拟查找特定用户
-router.get("/:id", (ctx) => {
-	findByID(ctx);
-});
+router.get("/:id", findByID);
 
 // 模拟修改用户
-router.put("/:id", (ctx) => {
-	update(ctx);
-});
+router.put("/:id", update);
 
 // 模拟删除用户
 // 204 no content 请求已成功, 只是没有内容
-router.delete("/:id", (ctx) => {
-	del(ctx);
-});
+router.delete("/:id", del);
 
 module.exports = router;
