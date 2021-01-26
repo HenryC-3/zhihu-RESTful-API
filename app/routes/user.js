@@ -14,7 +14,7 @@ router.post("/", create);
 router.get("/:id", findByID);
 
 // 模拟修改用户
-router.put("/:id", update);
+router.patch("/:id", update);
 
 // 模拟删除用户
 // 204 no content 请求已成功, 只是没有内容
