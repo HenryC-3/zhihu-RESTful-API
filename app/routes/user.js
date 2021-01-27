@@ -1,4 +1,4 @@
-const { verify } = require("jsonwebtoken");
+const jwt = require("koa-jwt");
 const Router = require("koa-router");
 const {
 	find,
@@ -13,22 +13,7 @@ const router = new Router({
 	prefix: "/users",
 });
 
-const auth = async (ctx, next) => {
-	const { authorization = "" } = ctx.request.header;
-
-	// bearer 表示验证类型 https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Authorization
-	const token = authorization.replace("Bearer ", "");
-	try {
-		const user = verify(token, process.env.SECRET);
-
-		// 将解码后的 token 挂载在 ctx.state 上
-		ctx.state.user = user;
-	} catch (e) {
-		ctx.throw(401, e.message);
-	}
-
-	await next();
-};
+const auth = jwt({ secret: process.env.SECRET });
 
 // 模拟获取用户列表
 router.get("/", find);

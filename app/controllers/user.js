@@ -66,10 +66,10 @@ class userController {
 		});
 
 		const user = await User.findOne(ctx.request.body);
-		const { _id, name } = user;
 		if (!user) {
 			ctx.throw(401, "用户名或密码错误");
 		}
+		const { _id, name } = user;
 		const token = jsonwebtoken.sign({ _id, name }, process.env.SECRET, {
 			expiresIn: "1d",
 		});
