@@ -2,6 +2,13 @@ const User = require("../models/user");
 const mongoose = require("mongoose");
 const jsonwebtoken = require("jsonwebtoken");
 class userController {
+	async checkUser(ctx, next) {
+		// token 中的 id 必须与 URL 中的 id 相同, 确保登陆用户只能修改自身信息
+		if (ctx.state.user._id !== ctx.params.id) {
+			ctx.throw(403, "没有权限");
+		}
+		await next();
+	}
 	async find(ctx) {
 		ctx.body = await User.find();
 	}
@@ -59,7 +66,7 @@ class userController {
 		});
 
 		const user = await User.findOne(ctx.request.body);
-		const { _id, name } = ctx.request.body;
+		const { _id, name } = user;
 		if (!user) {
 			ctx.throw(401, "用户名或密码错误");
 		}

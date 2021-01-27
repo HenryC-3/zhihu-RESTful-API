@@ -1,3 +1,4 @@
+const { verify } = require("jsonwebtoken");
 const Router = require("koa-router");
 const {
 	find,
@@ -6,10 +7,28 @@ const {
 	update,
 	del,
 	login,
+	checkUser,
 } = require("../controllers/user");
 const router = new Router({
 	prefix: "/users",
 });
+
+const auth = async (ctx, next) => {
+	const { authorization = "" } = ctx.request.header;
+
+	// bearer 表示验证类型 https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Authorization
+	const token = authorization.replace("Bearer ", "");
+	try {
+		const user = verify(token, process.env.SECRET);
+
+		// 将解码后的 token 挂载在 ctx.state 上
+		ctx.state.user = user;
+	} catch (e) {
+		ctx.throw(401, e.message);
+	}
+
+	await next();
+};
 
 // 模拟获取用户列表
 router.get("/", find);
@@ -21,11 +40,11 @@ router.post("/", create);
 router.get("/:id", findByID);
 
 // 模拟修改用户
-router.patch("/:id", update);
+router.patch("/:id", auth, checkUser, update);
 
 // 模拟删除用户
 // 204 no content 请求已成功, 只是没有内容
-router.delete("/:id", del);
+router.delete("/:id", auth, checkUser, del);
 
 // 模拟用户登录
 router.post("/login", login);
