@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const mongoose = require("mongoose");
+const jsonwebtoken = require("jsonwebtoken");
 class userController {
 	async find(ctx) {
 		ctx.body = await User.find();
@@ -12,7 +13,7 @@ class userController {
 		});
 
 		// 假设不能出现相同用户名, 通过查询用户名验证用户是否存在
-		if (User.findOne(ctx.request.body.name)) {
+		if (await User.findOne(ctx.request.body)) {
 			ctx.throw(409, "用户已存在");
 		}
 		ctx.body = await new User(ctx.request.body).save();
@@ -50,6 +51,22 @@ class userController {
 			await User.findByIdAndDelete(ctx.params.id);
 			ctx.throw(204);
 		}
+	}
+	async login(ctx) {
+		ctx.verifyParams({
+			name: { type: "string", required: true },
+			password: { type: "string", required: true },
+		});
+
+		const user = await User.findOne(ctx.request.body);
+		const { _id, name } = ctx.request.body;
+		if (!user) {
+			ctx.throw(401, "用户名或密码错误");
+		}
+		const token = jsonwebtoken.sign({ _id, name }, process.env.SECRET, {
+			expiresIn: "1d",
+		});
+		ctx.body = { token };
 	}
 }
 
