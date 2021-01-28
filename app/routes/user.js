@@ -8,6 +8,7 @@ const {
 	del,
 	login,
 	checkUser,
+	upload,
 } = require("../controllers/user");
 const router = new Router({
 	prefix: "/users",
@@ -33,5 +34,8 @@ router.delete("/:id", auth, checkUser, del);
 
 // 模拟用户登录
 router.post("/login", login);
+
+// 模拟用户上传
+router.post("/upload", upload);
 
 module.exports = router;

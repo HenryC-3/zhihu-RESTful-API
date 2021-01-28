@@ -75,6 +75,10 @@ class userController {
 		});
 		ctx.body = { token };
 	}
+	async upload(ctx) {
+		const file = ctx.request.files;
+		ctx.body = Object.values(file)[0].path;
+	}
 }
 
 module.exports = new userController();

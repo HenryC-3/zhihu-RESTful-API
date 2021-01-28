@@ -6,6 +6,7 @@ const route = require("./app/routes");
 require("dotenv").config();
 const parameter = require("koa-parameter");
 const mongoose = require("mongoose");
+const path = require("path");
 
 mongoose.connect(process.env.CONNECTION_STRING, {
 	useNewUrlParser: true,
@@ -25,7 +26,15 @@ app.use(
 			process.env.NODE_ENV === "production" ? rest : { stack, ...rest },
 	})
 );
-app.use(KoaBody());
+app.use(
+	KoaBody({
+		multipart: true,
+		formidable: {
+			uploadDir: path.join(__dirname, "./app/public/uploads"),
+			keepExtensions: true,
+		},
+	})
+);
 app.use(parameter(app));
 route(app);
 
