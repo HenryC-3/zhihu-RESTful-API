@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const mongoose = require("mongoose");
 const jsonwebtoken = require("jsonwebtoken");
+const path = require("path");
 class userController {
 	async checkUser(ctx, next) {
 		// token 中的 id 必须与 URL 中的 id 相同, 确保登陆用户只能修改自身信息
@@ -77,7 +78,8 @@ class userController {
 	}
 	async upload(ctx) {
 		const file = ctx.request.files;
-		ctx.body = Object.values(file)[0].path;
+		const basename = path.basename(Object.values(file)[0].path);
+		ctx.body = { path: `${ctx.origin}/uploads/${basename}` };
 	}
 }
 

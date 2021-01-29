@@ -7,6 +7,7 @@ require("dotenv").config();
 const parameter = require("koa-parameter");
 const mongoose = require("mongoose");
 const path = require("path");
+const KoaStatic = require("koa-static");
 
 mongoose.connect(process.env.CONNECTION_STRING, {
 	useNewUrlParser: true,
@@ -20,6 +21,9 @@ db.once("open", function () {
 });
 
 // 注意中间件的调用顺序
+
+// koa 本身不支持访问静态文件，需要借助 koa static. 如下配置表示--仅支持访问 "./app/pulic" 下的静态文件
+app.use(KoaStatic(path.join(__dirname, "./app/public"))); //
 app.use(
 	error({
 		postFormat: (error, { stack, ...rest }) =>
