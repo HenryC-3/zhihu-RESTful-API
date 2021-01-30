@@ -27,10 +27,21 @@ class userController {
 		ctx.body = await new User(ctx.request.body).save();
 	}
 	async findByID(ctx) {
+		// url 格式 http://localhost:3000/users/60116cdb2bde543ca7350c2b?fields=locations;business
+		const { fields } = ctx.query;
+
+		// 处理获得的 url 参数, 使其满足 select 语法 https://mongoosejs.com/docs/api.html#query_Query-select
+		const seletedFields = fields
+			.split(";")
+			.filter((f) => f) //过滤空参数
+			.map((f) => " +" + f)
+			.join(" ");
+
 		if (!mongoose.Types.ObjectId.isValid(ctx.params.id)) {
 			ctx.throw(404, "用户不存在");
 		} else {
-			ctx.body = await User.findById(ctx.params.id);
+			// 在响应体中额外显示 selectedFields 中指定的 field, select 语法详见 https://mongoosejs.com/docs/api.html#query_Query-select
+			ctx.body = await User.findById(ctx.params.id).select(seletedFields);
 		}
 	}
 	async update(ctx) {
