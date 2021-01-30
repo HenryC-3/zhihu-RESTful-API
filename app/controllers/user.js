@@ -34,10 +34,16 @@ class userController {
 		}
 	}
 	async update(ctx) {
-		// 验证, 修改用户时, 不一定需要用户名和密码
 		ctx.verifyParams({
 			name: { type: "string", required: false },
 			password: { type: "string", required: false },
+			avatar_url: { type: "string", required: false },
+			gender: { type: "string", required: false },
+			headline: { type: "string", required: false },
+			locations: { type: "array", itemType: "string", required: false },
+			business: { type: "string", required: false },
+			employments: { type: "array", itemType: "object", required: false },
+			enducation: { type: "string", itemType: "object", required: false },
 		});
 		// 判断 id 是否有效 https://stackoverflow.com/a/25798043
 		if (!mongoose.Types.ObjectId.isValid(ctx.params.id)) {
