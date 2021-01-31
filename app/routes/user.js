@@ -9,6 +9,7 @@ const {
 	login,
 	checkUser,
 	upload,
+	listFollowing,
 } = require("../controllers/user");
 const router = new Router({
 	prefix: "/users",
@@ -37,5 +38,7 @@ router.post("/login", login);
 
 // 模拟用户上传
 router.post("/upload", upload);
+
+router.get("/:id/following", listFollowing);
 
 module.exports = router;

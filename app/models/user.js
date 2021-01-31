@@ -38,6 +38,12 @@ const userSchema = new Schema({
 		],
 		select: false,
 	},
+	following: {
+		// [mongoose开发详解 - 拍岸的博客 | Paian's Blog](https://mobilesite.github.io/2017/05/07/how-to-use-mongoose/)
+		// ref 引用了 User document, 后续可以通过 ObjectId 查询 User 中对应 Id 用户的其他数据
+		type: [{ type: Schema.Types.ObjectId, ref: "User" }],
+		select: false,
+	},
 });
 
 module.exports = model("User", userSchema);

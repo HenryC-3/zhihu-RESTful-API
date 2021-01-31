@@ -98,6 +98,16 @@ class userController {
 		const basename = path.basename(Object.values(file)[0].path);
 		ctx.body = { path: `${ctx.origin}/uploads/${basename}` };
 	}
+
+	async listFollowing(ctx) {
+		const user = await User.findById(ctx.params.id)
+			.select("following")
+			.populate("following");
+		if (!user) {
+			ctx.throw(404);
+		}
+		ctx.body = user.following;
+	}
 }
 
 module.exports = new userController();
