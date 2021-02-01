@@ -10,6 +10,7 @@ const {
 	checkUser,
 	upload,
 	listFollowing,
+	follow,
 } = require("../controllers/user");
 const router = new Router({
 	prefix: "/users",
@@ -40,5 +41,7 @@ router.post("/login", login);
 router.post("/upload", upload);
 
 router.get("/:id/following", listFollowing);
+
+router.put("/following/:id", auth, follow);
 
 module.exports = router;
