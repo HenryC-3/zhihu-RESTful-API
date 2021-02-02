@@ -6,7 +6,8 @@
 	"scripts": {
 		"commit": "git-cz",
 		"start": "node index.js",
-		"start:dev": "nodemon index.js"
+		"start:dev": "nodemon index.js",
+		"build:doc": "jsdoc -c jsdoc.json"
 	},
 	"config": {
 		"commitizen": {
@@ -31,12 +32,16 @@
 	"devDependencies": {
 		"@commitlint/cli": "^11.0.0",
 		"@commitlint/config-conventional": "^11.0.0",
+		"better-docs": "^2.3.2",
 		"commitizen": "^4.2.3",
 		"cross-env": "^7.0.3",
 		"cz-conventional-changelog": "^3.3.0",
 		"dotenv": "^8.2.0",
 		"husky": "^5.0.6",
-		"nodemon": "^2.0.7"
+		"jsdoc-mermaid": "^1.0.0",
+		"nodemon": "^2.0.7",
+		"docdash": "^1.2.0",
+		"jsdoc": "^3.6.6"
 	},
 	"dependencies": {
 		"koa": "^2.13.1",
@@ -44,6 +49,7 @@
 		"koa-json-error": "^3.1.2",
 		"koa-parameter": "^3.0.1",
 		"koa-router": "^10.0.0",
+		"minami": "^1.2.3",
 		"mongoose": "^5.11.13"
 	}
 }
